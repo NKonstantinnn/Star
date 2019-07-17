@@ -14,6 +14,8 @@ import ErrorBoundry from '../error-boundry/error-boundry';
 import Row from '../row/row';
 import { PersonList, PlanetList, StarshipList } from '../sw-components/item-lists';
 import { PersonDetails, PlanetDetails, StarShipDetails } from '../sw-components/details';
+import { SwapiServiceProvider } from '../../swapi-service-context/swapi-service-context';
+
 
 export default class App extends Component {
 
@@ -65,24 +67,20 @@ export default class App extends Component {
 
     return (
       <ErrorBoundry>
-        <div className="container">
-          <Header />
+        <SwapiServiceProvider value={ this.swapiService }>
+          <div className="container">
+            <Header />
 
-          <PersonDetails itemId={ 10 } />
-          <PlanetDetails itemId={ 11 } />
-          <StarShipDetails itemId={ 11 } />
+            <PersonDetails itemId={ 10 } />
+            <PlanetDetails itemId={ 11 } />
+            <StarShipDetails itemId={ 11 } />
 
-          <PersonList 
-            renderItem={ ({ name, gender, birthYear }) => `${ name } (${ gender }, ${ birthYear })` } />
+            <PersonList />
+            <PlanetList />
+            <StarshipList />
 
-          <PlanetList 
-            renderItem={ ({ name}) => name } />
-
-        <StarshipList
-            renderItem={ ({ name}) => name } />
-
-
-        </div>
+          </div>
+        </SwapiServiceProvider>
       </ErrorBoundry>
     );
   };
