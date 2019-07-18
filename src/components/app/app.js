@@ -12,6 +12,8 @@ import PeoplePage from '../pages/people-page';
 import PlanetPage from '../pages/planet-page';
 import StarshipPage from '../pages/starship-page';
 import StartshipDetails from '../sw-components/startship-details';
+import LoginPage from '../pages/login-page';
+import SecretPage from '../pages/secret-page';
 
 export default class App extends Component {
 
@@ -21,7 +23,20 @@ export default class App extends Component {
     console.log("change serivce");
   }
 
+  state = {
+    isLoggedIn: false
+  };
+
+  onLogin = () => {
+    this.setState({
+      isLogedIn: true
+    });
+  }
+
   render() {
+
+    const { isLogedIn } = this.state;
+
     return (
       <ErrorBoundry>
         <SwapiServiceProvider value={ this.swapiService }>
@@ -43,6 +58,16 @@ export default class App extends Component {
                   const { id } = match.params;
                   return <StartshipDetails itemId={ id }  /> 
                 }} />
+              <Route 
+                path="/login"
+                render={() => (
+                  <LoginPage onLogin={ this.onLogin } isLoggedIn={ isLogedIn }/>
+                 )} />
+              <Route 
+                path="/secret"
+                render={() => (
+                  <SecretPage isLogedIn={ isLogedIn }/>
+                 )} />
               
             </div>
           </Router>
