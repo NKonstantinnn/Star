@@ -11,6 +11,7 @@ import './app.css';
 import PeoplePage from '../pages/people-page';
 import PlanetPage from '../pages/planet-page';
 import StarshipPage from '../pages/starship-page';
+import StartshipDetails from '../sw-components/startship-details';
 
 export default class App extends Component {
 
@@ -34,7 +35,14 @@ export default class App extends Component {
                 exact />
               <Route path="/people" component={ PeoplePage } />
               <Route path="/planets" component={ PlanetPage } />
-              <Route path="/starships" component={ StarshipPage } />
+              <Route path="/starships"
+                component={ StarshipPage }
+                exact />
+              <Route path="/starships/:id"
+                render={ ({ match }) => {
+                  const { id } = match.params;
+                  return <StartshipDetails itemId={ id }  /> 
+                }} />
               
             </div>
           </Router>
